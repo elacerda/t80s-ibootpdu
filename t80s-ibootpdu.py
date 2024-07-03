@@ -22,7 +22,7 @@ class readFileArgumentParser(ap.ArgumentParser):
 def parse_arguments(default_args_file=None):
     parser = readFileArgumentParser(fromfile_prefix_chars='@')
 
-    parser.add_argument('--iboot_http', '-H', default=None, help='T80-South iBoot PDU http link.')
+    parser.add_argument('--iboot_http', '-H', type=str, default=None, help='T80-South iBoot PDU http link.')
     parser.add_argument('--fanwest', '-W', action='store_true', default=False, help='Control FanWest outlet')
     parser.add_argument('--faneast', '-E', action='store_true', default=False, help='Control FanEast outlet')
     parser.add_argument('--filterwheel', '-F', action='store_true', default=False, help='Control FilterWheel outlet')
@@ -87,4 +87,4 @@ if __name__ == '__main__':
     if control.action is None:
         control.get_status()
     else:
-        control.control_outlets()
+        control.control_outlets()token
