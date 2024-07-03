@@ -87,4 +87,4 @@ if __name__ == '__main__':
     if control.action is None:
         control.get_status()
     else:
-        control.control_outlets()token
+        control.control_outlets()
