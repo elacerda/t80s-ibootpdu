@@ -35,8 +35,9 @@ class iboot:
         'filterwheel': 3,
     }
 
-    def __init__(self, http_link, outlets=None, action=None, token=None, verbose=0):
-        self.http_link = http_link
+    def __init__(self, ip, outlets=None, action=None, token=None, verbose=0):
+        self.ip = ip
+        self.http_link = f'http://{ip}/services'
         if outlets is None:
             self.outlets = [x for x in self._outlets.values()]
         else:
@@ -65,7 +66,10 @@ class iboot:
                 token = data['token']
                 print_level(f'token: {token}', 1, verbose)
             else:
-                print_level(f'{data["message"]}')
+                if data:
+                    print_level(f'{data['message']}')
+                else:
+                    print_level('Token not acquired...')
             self.token = token
     
     def get_status(self):
@@ -74,9 +78,9 @@ class iboot:
             _out = [int(x) for x in data['outlets'].keys()]
             for i, iout in enumerate(_out):
                 _outname = list(self._outlets.keys())[iout - 1]
-                print_level(f'{_outname}: {data["outlets"][str(iout)]}')
+                print_level(f'{_outname}: {data['outlets'][str(iout)]}')
         else:
-            print_level(f'{data["message"]}')
+            print_level(f'{data['message']}')
 
     def control_outlets(self):
         control = {

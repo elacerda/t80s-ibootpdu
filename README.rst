@@ -6,8 +6,8 @@ T80-South iBoot PDU python script
 Execute script
 --------------
 
-The script needs the T80-South iBoot PDU HTTP Link. Remember to use ``--http_link`` argument or
-setup the `T80S_IBOOT_HTTP` enviroment variable.
+The script needs the T80-South iBoot PDU HTTP Link. Remember to use ``--ip`` argument or
+setup the `T80S_IBOOT_IP` enviroment variable.
 
 Get help with ``--help`` option.
 

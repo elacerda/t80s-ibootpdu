@@ -22,7 +22,7 @@ class readFileArgumentParser(ap.ArgumentParser):
 def parse_arguments(default_args_file=None):
     parser = readFileArgumentParser(fromfile_prefix_chars='@')
 
-    parser.add_argument('--iboot_http', '-H', type=str, default=None, help='T80-South iBoot PDU http link.')
+    parser.add_argument('--iboot_ip', '-I', type=str, default=None, help='T80-South iBoot PDU I.P. number')
     parser.add_argument('--fanwest', '-W', action='store_true', default=False, help='Control FanWest outlet')
     parser.add_argument('--faneast', '-E', action='store_true', default=False, help='Control FanEast outlet')
     parser.add_argument('--filterwheel', '-F', action='store_true', default=False, help='Control FilterWheel outlet')
@@ -35,15 +35,15 @@ def parse_arguments(default_args_file=None):
     args_list = sys.argv[1:]
     args = parser.parse_args(args=args_list)
 
-    # HTTP LINK
-    if args.iboot_http is None:
-        print_level('missing --iboot_http. Trying to read from enviroment...')
-        env_http = os.environ.get('T80S_IBOOT_HTTP', None)
-        if env_http is None:
-            parser.error('missing T80S_IBOOT_HTTP enviroment variable...')
+    # IBOOT PDU I.P.
+    if args.iboot_ip is None:
+        print_level('missing --iboot_ip. Trying to read from enviroment...')
+        env_ip = os.environ.get('T80S_IBOOT_IP', None)
+        if env_ip is None:
+            parser.error('missing T80S_IBOOT_IP enviroment variable...')
         else:
             print_level('Done', 1, args.verbose)
-            args.iboot_http = env_http
+            args.iboot_ip = env_ip
     
     # ACTION
     err_msg = 'You must choose --on, --off or --cycle'
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     args = parse_arguments()
 
     control = iboot(
-        http_link=args.iboot_http,
+        ip=args.iboot_ip,
         outlets=args.outlets, 
         action=args.action, 
         token=args.token, 
